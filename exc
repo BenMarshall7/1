@@ -1,0 +1,26 @@
+ Sheets("Beszerzés").Select
+    Sheets("Beszerzés").Move
+    
+    
+' Kérdés és e-mail
+    Dim answer As Integer
+    answer = MsgBox("E-mail előkészítésre szükséged van?", vbQuestion + vbYesNo + vbDefaultButton2, "E-mail")
+    If answer = vbYes Then
+    
+    
+    Dim EmailApp As Outlook.Application
+    Set EmailApp = New Outlook.Application
+    
+    Dim EmailItem As Outlook.MailItem
+    Set EmailItem = EmailApp.CreateItem(olMailItem)
+    
+    EmailItem.To = "beszerzes@solinfo.hu"
+    EmailItem.Subject = "Beszerzés - " & Sheets("Beszerzés").Range("E3").Value & " " & Sheets("Beszerzés").Range("E4").Value
+    EmailItem.Body = "Kedves Beszerzési osztály!" & vbNewLine & vbNewLine & "Csatoltam részetekre a '" & Sheets("Beszerzés").Range("E4").Value & _
+    "' projekthez tartozó beszerzési nyomtatványt. Kérlek indítsátok el a gyártói megrendeléseket a projekthez." & vbNewLine & _
+    "Amennyiben kérdésetek merül fel, keressetek bizalommal!" & vbNewLine & vbNewLine & "Üdv,"
+    
+    EmailItem.Display
+  
+    Else
+    End If
